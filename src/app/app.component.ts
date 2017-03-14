@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from "angularfire2";
-import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-root',
@@ -10,53 +9,17 @@ import {forEach} from "@angular/router/src/utils/collection";
 export class AppComponent {
   items: FirebaseListObservable<any[]>;
   itemValues: FirebaseListObservable<any[]>;
-  result: string = '';
-  resultNumber: number = 0;
+
   resList = [];
 
   constructor(af: AngularFire) {
     this.itemValues = af.database.list('/items', {preserveSnapshot: true});
     this.items = af.database.list('/items');
-    this.resultNumber=0;
 
     this.itemValues.subscribe(snapshots => {
-      this.result = '';
-      this.resultNumber=0;
-      let lastTypeNumber=true;
-      let lastNumber='';
-
-
+      this.resList = [];
       snapshots.forEach(snapshot => {
-        // console.log(snapshot.val())
-
-        // this.result = this.result + snapshot.val()
-        // this.resultNumber =  this.resultNumber + Number(snapshot.val());
-
-        debugger;
-        var current = Number(snapshot.val());
-
-        // console.log(current);
-        if (!isNaN(current) && lastTypeNumber==false) {
-          lastTypeNumber=true;
-          this.resultNumber=this.resultNumber+current;
-        }
-        else if (!isNaN(current) && lastTypeNumber==true) {
-          lastTypeNumber=true;
-          lastNumber=lastNumber+current;
-        }
-        else if (isNaN(current)) {
-          lastTypeNumber=false;
-          this.resultNumber= this.resultNumber+Number(lastNumber);
-          lastNumber='';
-        }
-        // console.log("last number:");
-        // console.log(lastNumber);
-        // console.log("last type:");
-        // console.log(lastTypeNumber);
-
-
-        this.resList.push(Number(snapshot.val()));
-
+        this.resList.push(snapshot.val());
       });
     })
   }
@@ -69,24 +32,67 @@ export class AppComponent {
     this.items.remove().then(_ => console.log('deleted!'));
   }
 
-  showResult(str) {
-    // let res = 0 ;
-    // let numbers = [1, 2, 3];
-    // for (let num of numbers) {
-    //   res=res+num;
-    // }
-    var res = this.resultNumber;
-    this.items.remove().then(_ => console.log('deleted!'));
-    this.items.push(res);
-    console.log(this.resultNumber);
-
-    // Number('1234')
-
-   // console.log(this.result)
-    // this.items.forEach(item => {
-    //   console.log('Item:', item);
-    // });
+  getFixedList() {
+    var fixedlist = [];
+    var lastNumber = '';
+    for (let res of this.resList) {
+      var current = Number(res);
+      if (!isNaN(current)) { //number
+        lastNumber = lastNumber + current;
+      }
+      else { //operator
+        fixedlist.push(lastNumber);
+        fixedlist.push(res);
+        lastNumber = '';
+      }
+    }
+    fixedlist.push(lastNumber);
+    return fixedlist;
   }
 
-  title = 'app works!';
+
+  showResult(str) {
+    var list = this.getFixedList();
+    var position = 1;
+    var left = 0;
+    var right = 0;
+    var lastOperand = '+';
+
+    for (let res of list) {
+      var current = Number(res);
+      if (!isNaN(current)) { //number
+        if (position == 1) {
+          left = current;
+          position = 2;
+        }
+        else {
+          right = current;
+
+          switch (lastOperand) {
+            case'+':
+              left = left + right;
+              break;
+            case'-':
+              left = left - right;
+              break;
+            case'x':
+              left = left * right;
+              break;
+            case'÷':
+              left = left / right;
+              break;
+            default:
+              left = left + right;
+          }
+        }
+
+      }
+      else { // operator
+        lastOperand = res;
+      }
+    }
+    this.items.remove().then(_ => console.log('deleted!'));
+    this.items.push(left);
+  }
+
 }

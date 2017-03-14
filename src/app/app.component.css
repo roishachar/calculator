@@ -1,3 +1,5 @@
+
+
 /* Basic reset */
 * {
   margin: 0;
@@ -17,7 +19,6 @@ html {
   background: radial-gradient(circle, #fff 20%, #ccc);
   background-size: cover;
 }
-
 ul
 {
   overflow-x:hidden;
@@ -30,8 +31,10 @@ li
 {
   display:inline;
 }
+
 /* Using box shadows to create 3D effects */
 #calculator {
+
   width: 325px;
   height: auto;
 
