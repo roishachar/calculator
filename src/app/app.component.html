@@ -1,5 +1,6 @@
 <h1>
   {{title}}
+  {{resultNumber}}
 </h1>
 
 
@@ -9,6 +10,8 @@
     {{item.$value}}
   </li>
 </ul>
+
+
 
 
 <div id="calculator">
@@ -39,7 +42,7 @@
     <span (click)="pushItem('÷')" class="operator">÷</span>
     <span (click)="pushItem('0')">0</span>
     <span>.</span>
-    <span (click)="showResult()" class="eval">=</span>
+    <span (click)="showResult('=')" class="eval">=</span>
     <span (click)="pushItem('x')" class="operator">x</span>
   </div>
 </div>
