@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {AngularFireModule} from "angularfire2";
+import { CalcComponent } from './calc/calc.component';
 
 // Must export the config
 export const firebaseConfig = {
@@ -17,7 +18,8 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CalcComponent
 
   ],
   imports: [

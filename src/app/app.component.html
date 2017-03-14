@@ -1,33 +1,38 @@
-
-<div id="calculator">
-  <!-- Screen and clear key -->
-  <div class="top">
-    <span (click)="clearList()" class="clear">C</span>
-    <div class="screen">
-      <li class="text" *ngFor="let item of items | async">
-        {{item.$value}}
-      </li>
-
+<div class="collapse bg-inverse" id="navbarHeader">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 py-4">
+        <h4 class="text-white">About</h4>
+        <p class="text-muted">Calculator project</p>
+      </div>
+      <div class="col-sm-4 py-4">
+        <h4 class="text-white">Contact</h4>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white">Roi Shachar</a></li>
+        </ul>
+      </div>
     </div>
   </div>
-
-  <div class="keys">
-    <!-- operators and other keys -->
-    <span (click)="pushItem('7')">7</span>
-    <span (click)="pushItem('8')">8</span>
-    <span (click)="pushItem('9')">9</span>
-    <span (click)="pushItem('+')" class="operator">+</span>
-    <span (click)="pushItem('4')" >4</span>
-    <span (click)="pushItem('5')">5</span>
-    <span (click)="pushItem('6')">6</span>
-    <span (click)="pushItem('-')" class="operator">-</span>
-    <span (click)="pushItem('1')">1</span>
-    <span (click)="pushItem('2')">2</span>
-    <span (click)="pushItem('3')">3</span>
-    <span (click)="pushItem('÷')" class="operator">÷</span>
-    <span (click)="pushItem('0')">0</span>
-    <span>.</span>
-    <span (click)="showResult('=')" class="eval">=</span>
-    <span (click)="pushItem('x')" class="operator">x</span>
+</div>
+<div class="navbar navbar-inverse bg-inverse">
+  <div class="container d-flex justify-content-between">
+    <a href="#" class="navbar-brand">Online Calculator</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+            aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </div>
 </div>
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">Online Multiplayer Calculator</h1>
+    <p class="lead text-muted">Now you can calculate with your friends</p>
+  </div>
+</section>
+
+
+
+
+
+<app-calc></app-calc>
