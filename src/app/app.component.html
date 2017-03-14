@@ -9,3 +9,37 @@
     {{item.$value}}
   </li>
 </ul>
+
+
+<div id="calculator">
+  <!-- Screen and clear key -->
+  <div class="top">
+    <span (click)="clearList()" class="clear">C</span>
+    <div class="screen">
+      <li class="text" *ngFor="let item of items | async">
+        {{item.$value}}
+      </li>
+
+    </div>
+  </div>
+
+  <div class="keys">
+    <!-- operators and other keys -->
+    <span (click)="pushItem('7')">7</span>
+    <span (click)="pushItem('8')">8</span>
+    <span (click)="pushItem('9')">9</span>
+    <span (click)="pushItem('+')" class="operator">+</span>
+    <span (click)="pushItem('4')" >4</span>
+    <span (click)="pushItem('5')">5</span>
+    <span (click)="pushItem('6')">6</span>
+    <span (click)="pushItem('-')" class="operator">-</span>
+    <span (click)="pushItem('1')">1</span>
+    <span (click)="pushItem('2')">2</span>
+    <span (click)="pushItem('3')">3</span>
+    <span (click)="pushItem('÷')" class="operator">÷</span>
+    <span (click)="pushItem('0')">0</span>
+    <span>.</span>
+    <span (click)="pushItem('=')" class="eval">=</span>
+    <span (click)="pushItem('x')" class="operator">x</span>
+  </div>
+</div>

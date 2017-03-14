@@ -13,5 +13,13 @@ export class AppComponent {
     this.items = af.database.list('/items');
   }
 
+  pushItem(str)
+  {
+    this.items.push(str);
+  }
+  clearList()
+  {
+    this.items.remove().then(_ => console.log('deleted!'));
+  }
   title = 'app works!';
 }
